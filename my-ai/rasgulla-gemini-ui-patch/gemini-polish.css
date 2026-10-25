@@ -1,0 +1,265 @@
+/*
+ * Rasgulla AI - Gemini-inspired visual polish
+ * Keeps assistant-ui's existing behavior and component structure intact.
+ */
+
+:root {
+  --rasgulla-accent: oklch(0.59 0.19 275);
+  --rasgulla-accent-soft: oklch(0.94 0.035 280);
+  --rasgulla-glow: oklch(0.83 0.09 245 / 22%);
+}
+
+.dark {
+  --rasgulla-accent: oklch(0.78 0.12 275);
+  --rasgulla-accent-soft: oklch(0.27 0.045 280);
+  --rasgulla-glow: oklch(0.5 0.1 265 / 14%);
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  background:
+    radial-gradient(ellipse at 78% 0%, var(--rasgulla-glow), transparent 34rem),
+    var(--background);
+}
+
+.rasgulla-app-shell {
+  isolation: isolate;
+}
+
+.rasgulla-main-pane {
+  background: transparent;
+}
+
+.rasgulla-topbar {
+  position: relative;
+  z-index: 5;
+  border-bottom: 1px solid color-mix(in oklab, var(--border) 78%, transparent);
+  background: color-mix(in oklab, var(--background) 86%, transparent);
+  backdrop-filter: blur(18px);
+}
+
+.rasgulla-brand-title {
+  letter-spacing: -0.025em;
+}
+
+.rasgulla-brand-mark {
+  display: inline-grid;
+  width: 1.8rem;
+  height: 1.8rem;
+  place-items: center;
+  border-radius: 0.7rem;
+  color: white;
+  background: linear-gradient(135deg, oklch(0.67 0.19 285), oklch(0.65 0.16 235));
+  box-shadow: 0 4px 16px oklch(0.55 0.17 270 / 20%);
+}
+
+.rasgulla-topbar-status {
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  letter-spacing: 0.01em;
+}
+
+.rasgulla-status-dot {
+  width: 0.45rem;
+  height: 0.45rem;
+  border-radius: 999px;
+  background: oklch(0.7 0.17 150);
+  box-shadow: 0 0 0 3px oklch(0.7 0.17 150 / 12%);
+}
+
+.rasgulla-thread-stage {
+  min-height: 0;
+}
+
+.aui-thread-root {
+  --thread-max-width: 48rem !important;
+  background: transparent !important;
+}
+
+[data-slot="aui_thread-viewport"] {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in oklab, var(--muted-foreground) 25%, transparent) transparent;
+}
+
+.aui-thread-welcome-root {
+  gap: 0.55rem;
+  padding: 0.25rem 0.35rem 1.1rem;
+  animation: rasgulla-rise 420ms ease-out both;
+}
+
+.aui-thread-welcome-message-inner {
+  max-width: 42rem;
+  font-size: clamp(2rem, 4.8vw, 3.35rem) !important;
+  line-height: 1.08;
+  font-weight: 600 !important;
+  letter-spacing: -0.055em !important;
+  background: linear-gradient(
+    105deg,
+    var(--foreground) 12%,
+    var(--rasgulla-accent) 58%,
+    color-mix(in oklab, var(--foreground) 70%, var(--rasgulla-accent))
+  );
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.aui-thread-welcome-root > p:last-child {
+  max-width: 34rem;
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.aui-thread-welcome-suggestions {
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+
+.aui-thread-welcome-suggestion {
+  min-height: 3.25rem;
+  border: 1px solid color-mix(in oklab, var(--border) 88%, transparent);
+  border-radius: 1rem !important;
+  background: color-mix(in oklab, var(--card) 80%, transparent);
+  padding: 0.85rem 1rem !important;
+  box-shadow: 0 2px 8px oklch(0.2 0.02 270 / 3%);
+}
+
+.aui-thread-welcome-suggestion:hover {
+  border-color: color-mix(in oklab, var(--rasgulla-accent) 34%, var(--border));
+  background: color-mix(in oklab, var(--rasgulla-accent-soft) 52%, var(--card)) !important;
+  transform: translateY(-1px);
+}
+
+[data-slot="aui_composer-shell"] {
+  border-color: color-mix(in oklab, var(--border) 90%, transparent) !important;
+  border-radius: 1.55rem !important;
+  background: color-mix(in oklab, var(--card) 88%, transparent) !important;
+  padding: 0.8rem !important;
+  box-shadow:
+    0 10px 34px oklch(0.2 0.02 270 / 5%),
+    0 1px 2px oklch(0.2 0.02 270 / 4%);
+  backdrop-filter: blur(20px);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background 160ms ease;
+}
+
+[data-slot="aui_composer-shell"]:focus-within {
+  border-color: color-mix(in oklab, var(--rasgulla-accent) 48%, var(--border)) !important;
+  box-shadow:
+    0 0 0 3px color-mix(in oklab, var(--rasgulla-accent) 10%, transparent),
+    0 12px 38px oklch(0.2 0.02 270 / 7%);
+}
+
+.aui-composer-input {
+  min-height: 3rem !important;
+  padding: 0.65rem 0.7rem !important;
+  line-height: 1.6 !important;
+}
+
+.aui-thread-viewport-footer {
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    color-mix(in oklab, var(--background) 94%, transparent) 1.2rem
+  ) !important;
+  padding-top: 1rem;
+}
+
+.aui-user-message-content {
+  border: 1px solid color-mix(in oklab, var(--border) 55%, transparent);
+  border-radius: 1.25rem !important;
+  background: color-mix(in oklab, var(--rasgulla-accent-soft) 62%, var(--muted)) !important;
+  padding: 0.8rem 1rem !important;
+}
+
+.dark .aui-user-message-content {
+  background: color-mix(in oklab, var(--rasgulla-accent-soft) 80%, var(--card)) !important;
+}
+
+.aui-assistant-message-content,
+.aui-assistant-message-content-wrapper {
+  line-height: 1.75;
+}
+
+.aui-sidebar-header {
+  padding-top: 1rem;
+  padding-bottom: 0.85rem;
+}
+
+.aui-sidebar-header-icon-wrapper {
+  border-radius: 0.8rem !important;
+  background: linear-gradient(135deg, oklch(0.67 0.19 285), oklch(0.65 0.16 235)) !important;
+}
+
+[data-slot="sidebar-inset"] {
+  min-width: 0;
+}
+
+button,
+[role="button"] {
+  -webkit-tap-highlight-color: transparent;
+}
+
+:where(button, textarea, input, [role="button"]):focus-visible {
+  outline-color: var(--rasgulla-accent);
+  outline-offset: 2px;
+}
+
+@keyframes rasgulla-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .aui-thread-welcome-suggestions {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .aui-thread-root {
+    --thread-max-width: 50rem !important;
+  }
+}
+
+@media (max-width: 640px) {
+  .rasgulla-topbar {
+    height: 3.75rem;
+    padding-inline: 0.75rem;
+  }
+
+  .aui-thread-welcome-root {
+    padding-inline: 0.15rem;
+  }
+
+  .aui-thread-welcome-root > p:last-child {
+    font-size: 0.875rem;
+  }
+
+  [data-slot="aui_composer-shell"] {
+    border-radius: 1.25rem !important;
+    padding: 0.6rem !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
